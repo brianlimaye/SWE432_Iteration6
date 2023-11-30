@@ -1,0 +1,255 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: sans-serif;
+  background: linear-gradient(
+    135.8deg,
+    rgb(26, 26, 29) 27.1%,
+    rgb(111, 34, 50) 77.5%
+  );
+}
+
+.container {
+  display: flex;
+  color: #fff;
+}
+
+.sidebar {
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(
+    118.4deg,
+    rgb(122, 35, 52) 27.5%,
+    rgb(62, 9, 27) 92.7%
+  );
+  padding: 30px 0;
+  overflow: auto;
+  color: #fff;
+}
+
+.sidebar .fa-user {
+  margin-left: 80px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-size: 100px;
+}
+
+.sidebar h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  padding: 15px;
+  border-top: 2px solid #fff;
+  text-align: center;
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.sidebar a:last-child {
+  border-bottom: 2px solid #fff;
+}
+
+.sidebar a:hover:not(.current-page) {
+  background-color: #73726b7b;
+}
+
+.current-page {
+  background-color: #371d25;
+}
+
+.main-content {
+  margin-top: 20px;
+  margin-left: 320px;
+  padding: 10px 10px;
+  width: 100vw;
+}
+
+.select-showtime {
+  margin-bottom: 50px;
+}
+
+.submit-time {
+  margin-left: 32px;
+}
+
+.submit-btn {
+  padding: 5px;
+  background-color: #fff;
+  outline: none;
+  border: 3px solid #1a1a1d;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #1a1a1d;
+}
+
+.submit-btn:hover {
+  background-color: #73726b7b;
+}
+
+h2,
+input {
+  margin-bottom: 20px;
+}
+
+.input-container {
+  margin: auto;
+  width: 50%;
+}
+
+input[type="datetime-local"] {
+  background-color: #fff;
+  background-image: url(images/calendar.png);
+  background-repeat: no-repeat;
+  background-position: 96%;
+  background-size: 15px;
+  color: #1a1a1d;
+  text-align: center;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+.playlists {
+  width: 1000px;
+  background: linear-gradient(
+    118.4deg,
+    rgb(122, 35, 52) 27.5%,
+    rgb(62, 9, 27) 92.7%
+  );
+  padding: 30px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+
+#playlist-search {
+  display: none;
+}
+
+input[type="text"] {
+  display: block;
+  width: 20%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(55, 27, 35);
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
+
+.tabs-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 2px solid rgba(229, 229, 229);
+}
+
+.tabs-container .tabs {
+  font-size: 18px;
+  font-weight: 600px;
+  color: #fff;
+  background: none;
+  border: none;
+  padding: 18px;
+  cursor: pointer;
+}
+
+.tabs-container .tabs.active {
+  color: #919191;
+}
+
+.playlists-container .content-list {
+  display: none;
+}
+
+.playlists-container .content-list.active {
+  display: block;
+  width: 100%;
+  height: 410px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.playlists-container .content-list.active::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.playlists-container .content-list.active .fa-trash,
+.playlists-container .content-list.active .fa-plus {
+  margin-right: 10px;
+  margin-left: auto;
+  font-size: 22px;
+  color: #d3d3d3;
+  cursor: pointer;
+}
+
+.song-container {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 35px 0;
+}
+
+.song-cover {
+  width: 50px;
+  height: 50px;
+}
+
+.song-cover img {
+  width: 40px;
+  height: 40px;
+  margin: 2px 5px;
+  padding: 1px;
+}
+
+.song-title {
+  width: 300px;
+  padding: 0 5px;
+  height: 50px;
+}
+
+.song-title h6 {
+  margin-top: 7px;
+  font-size: 15px;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  line-height: 15px;
+}
+
+.song-title p {
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: #e1e1e1;
+  cursor: pointer;
+}
+
+.playlists-container .content-list h2 {
+  margin-bottom: 10px;
+}
+
+.playlists-container .prev-songs.active {
+  display: none;
+}

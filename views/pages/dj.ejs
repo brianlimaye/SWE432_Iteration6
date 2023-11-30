@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/dj_style.css" />
+    <title>DJ's Playlists</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <i class="fa-regular fa-user"></i>
+        <h3><%= username %></h3>
+        <a href="#">Home</a>
+        <a href="#">Producer</a>
+        <a href="#">Listener</a>
+        <a href="#" class="current-page">DJ's Playlists</a>
+      </div>
+      <main class="main-content">
+        <section class="select-showtime">
+          <h2 class="showtime">Select Showtime</h2>
+          <form class="input-container">
+            <input class="schedule" type="datetime-local" id="date" />
+            <div class="submit-time">
+              <button class="submit-btn" onclick="alert('Schedule submitted')">
+                <p>submit schedule</p>
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <div class="search-bar">
+          <input
+            class="search active"
+            type="text"
+            id="song-search"
+            placeholder="Search for a song"
+          />
+
+          <input
+            class="search"
+            type="text"
+            id="playlist-search"
+            placeholder="Search for a playlist"
+          />
+        </div>
+
+        <section class="playlists">
+          <div class="tabs-container">
+            <button class="tabs active">Current Playlist</button>
+            <button class="tabs" id="previous-playlist">
+              Previous Playlist
+            </button>
+            <button class="tabs">Previous Playlist Songs</button>
+          </div>
+          <div class="playlists-container">
+            <div class="content-list active">
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/for-all-the-dogs.png" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>IDGAF</h6>
+                  <p>Drake, Yeat</p>
+                </div>
+                <i class="fa-solid fa-trash"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/set-if-off.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>SAY MY GRACE (feat. Travis Scott)</h6>
+                  <p>Offset, Travis Scott</p>
+                </div>
+                <i class="fa-solid fa-trash"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/Travis_Scott_-_Utopia.png" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>MELTDOWN (feat. Drake)</h6>
+                  <p>Travis Scott, Drake</p>
+                </div>
+                <i class="fa-solid fa-trash"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/to-the-bank.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>To The Bank</h6>
+                  <p>Lil Wayne, Cool & Dre</p>
+                </div>
+                <i class="fa-solid fa-trash"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/rap-saved-me.png" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>Rap Saved Me (feat. Quavo)</h6>
+                  <p>21 Savage, Offset, Metro Boomin, Quavo</p>
+                </div>
+                <i class="fa-solid fa-trash"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/superheroes.png" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>
+                    Superhero (Heroes & Villains) [with Future & Chris Brown]
+                  </h6>
+                  <p>Metro Boomin, Future, Chris Brown</p>
+                </div>
+                <i class="fa-solid fa-trash"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/Eminem_Rap_God.png" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>Rap God</h6>
+                  <p>Eminem</p>
+                </div>
+                <i class="fa-solid fa-trash"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/TheOff-Season.jpeg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>amari</h6>
+                  <p>J. Cole</p>
+                </div>
+                <i class="fa-solid fa-trash"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img
+                    src="/images/The_life_of_pablo_alternate.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="song-title">
+                  <h6>Father Stretch My Hands Pt. 1</h6>
+                  <p>Kanye West</p>
+                </div>
+                <i class="fa-solid fa-trash"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/whole.jpeg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>Sky</h6>
+                  <p>Playboi Carti</p>
+                </div>
+                <i class="fa-solid fa-trash"></i>
+              </div>
+              <hr />
+            </div>
+
+            <div class="content-list" id="playlist-section">
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/playlist-1.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6 class="playlist-name">PLAYLIST 1</h6>
+                </div>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/playlist-2.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6 class="playlist-name">PLAYLIST 2</h6>
+                </div>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/playlist-10.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6 class="playlist-name">PLAYLIST 3</h6>
+                </div>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/playlist-3.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6 class="playlist-name">PLAYLIST 4</h6>
+                  <p></p>
+                </div>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/playlist-4.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6 class="playlist-name">PLAYLIST 5</h6>
+                </div>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/playlist-5.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6 class="playlist-name">PLAYLIST 6</h6>
+                </div>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/playlist-6.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6 class="playlist-name">PLAYLIST 7</h6>
+                </div>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/playlist-7.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6 class="playlist-name">PLAYLIST 8</h6>
+                </div>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/playlist-8.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6 class="playlist-name">PLAYLIST 9</h6>
+                </div>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/playlist-9.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6 class="playlist-name">PLAYLIST 10</h6>
+                </div>
+              </div>
+              <hr />
+            </div>
+
+            <div class="content-list prev-songs">
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/lean-wit-me.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>Lean Wit Me</h6>
+                  <p>Juice WRLD</p>
+                </div>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/look-at-me.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>Look At Me!</h6>
+                  <p>XXXTENTACION</p>
+                </div>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/the-grinch.jpeg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>The Grinch</h6>
+                  <p>Trippie Redd</p>
+                </div>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/flex-up.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>Flex Up (feat. Future & Playboi Carti)</h6>
+                  <p>Lil Yachty, Future, Playboi Carti</p>
+                </div>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/church-in-the-wild.jpeg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>No Church In The Wild</h6>
+                  <p>JAY-Z, Kanye West,Frank Ocean, The-Dream</p>
+                </div>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <hr />
+              <div class="song-container">
+                <div class="song-cover">
+                  <img src="/images/n95.jpg" alt="" />
+                </div>
+                <div class="song-title">
+                  <h6>N95</h6>
+                  <p>Kendrick Lamar</p>
+                </div>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="/dj_script.js"></script>
+  </body>
+</html>

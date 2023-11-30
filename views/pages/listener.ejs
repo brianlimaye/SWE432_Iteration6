@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Listener Page</title>
+</head>
+
+<body>
+    <nav>
+        <div class="container">
+            <div class="sidebar">
+                <img src="/images/emo.avif" alt="Butler" style=" width: 156px; height: 114px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;" />
+                <h3><%= username %></h3>
+                <a href="#">Home</a>
+                <a href="#" class="current-page">Listener</a>
+                <a href="#">DJ</a>
+                <a href="#">Producer</a>
+
+                <img src="images/ig.webp" style="width: 40px; height: 40px; display: block; margin-left: auto; margin-right: auto; margin-top: 200px;" id="igButton" />
+                  <script>
+                    function goToInstagram() {
+                        const igLink = 'https://www.instagram.com/hiphopdipdop/';
+                        window.location.href = igLink;
+                    }
+
+                    const igIcon = document.getElementById('igButton');
+                    igIcon.addEventListener('click', goToInstagram);
+                  </script>
+                <figcaption style="color: #fff; text-align: center;">Follow us on IG</figcaption>
+            </div>
+
+          <main class="main-content" style="text-align: center; position: relative">
+            <section class="now-playing">
+              <h2 class="playing">Now Playing</h2>
+              <img src="/images/idgaf.jpeg" alt="idgaf" style=" width: 384px; height: 216px; display: block; margin-left: auto; margin-right: auto; margin-top: 25px;" />
+              <audio controls style="position: relative;">
+                <source src="audio/idgaf.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio>
+              <h2 class="main_title">IDGAF</h2>
+              <h2 class="artist">Drake, Yeat</h2>
+            </section>
+
+            <div class="image-container">
+            <img src="images/more_info.jpeg" alt="More Info" style="width: 29px; height: 29px;" onclick="displayMoreInfo()" />
+            <script>
+                function displayMoreInfo() {
+                    alert('IDGAF is a song by Canadian rapper and singer Drake featuring American rapper Yeat. It was released through OVO and Republic as the seventh track from Drakes eighth studio album, For All the Dogs, on October 6, 2023.');
+                }
+            </script>
+
+            <img src="images/comment.png" alt="Comment" style="width: 29px; height: 29px;" onclick="submitComment()" />
+            <script>
+                function submitComment() {
+                    var input = prompt("Please leave a comment about this song.");
+
+                    if (input !== null && input.trim() !== "") {
+                        fetch('/api/insertComment', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ message: input }),
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Server Response:', data);
+                                if (data && data.success) {
+                                    alert("Thanks for your feedback!");
+                                } else {
+                                    alert("Error adding comment: " + (data ? data.message : 'Unknown error'));
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert("Error adding comment: " + error.message);
+                            });
+                    } else {
+                        alert("Empty comment inputted! Please leave a valid comment.");
+                    }
+                }
+            </script>
+
+            <img src="images/save.png" alt="Save" style="width: 29px; height: 29px;" onclick="saveSong('IDGAF', 'Drake, Yeat', '/images/idgaf.jpeg')" />
+              <script>
+                function saveSong(songName, artist, imageUrl) {
+
+                  fetch('/saveSong', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ title: songName, artist: artist, imageURL: imageUrl }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Server Response:', data);
+                            if (data && data.success) {
+
+                              // Assuming you have a container element for saved songs
+                              const savedSongsContainer = document.getElementById('saved-section');
+
+                              // Create a new div for the saved song
+                              const savedSongDiv = document.createElement('div');
+                              savedSongDiv.classList.add('song-container');
+
+                              // Create a new div for the song cover
+                              const songCoverDiv = document.createElement('div');
+                              songCoverDiv.classList.add('song-cover');
+                              // Create an image element for the song cover
+                              const songCoverImage = document.createElement('img');
+                              songCoverImage.src = imageUrl;
+                              songCoverDiv.appendChild(songCoverImage);
+
+                              // Create a new div for the song title
+                              const songTitleDiv = document.createElement('div');
+                              songTitleDiv.classList.add('song-title');
+                              const savedTitle = document.createElement('h6');
+                              savedTitle.textContent = songName;
+                              const savedArtist = document.createElement('p');
+                              savedArtist.textContent = artist;
+
+                              const trashIcon = document.createElement('i');
+                              trashIcon.classList.add('fa-solid', 'fa-trash');
+                              trashIcon.addEventListener('click', () => removeSavedSong(songName, artist, imageUrl, savedSongDiv));
+
+
+                              // Append the elements to the saved song div
+                              songTitleDiv.appendChild(savedTitle);
+                              songTitleDiv.appendChild(savedArtist);
+                              savedSongDiv.appendChild(songCoverDiv);
+                              savedSongDiv.appendChild(songTitleDiv);
+                              //savedSongDiv.appendChild(trashIcon);
+
+                              // Append the saved song div to the container
+                              savedSongsContainer.appendChild(savedSongDiv);
+
+                              alert("Song saved successfully!");
+                                
+                            } else {
+                                alert("Error saving song: " + (data ? data.message : 'Unknown error'));
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert("Error saving song: " + error.message);
+                        });
+                }
+
+                function removeSavedSong(songName, artist, imageUrl, savedSongDiv) {
+
+                  const savedSongsContainer = document.getElementById('saved-section');
+                  savedSongsContainer.removeChild(savedSongDiv);
+              
+                  // Additional logic to inform the server about the removal (if needed)
+                  // ...
+                  fetch('/removeSavedSong', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({ title: songName, artist: artist, imageURL: imageUrl }),
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                      if (data.success) {
+                          alert("Song removed successfully!");
+                      } else {
+                          alert("Error removing song: " + data.message);
+                      }
+                  })
+                  .catch(error => {
+                      console.error('Error removing song:', error);
+                      alert("Error removing song: " + error.message);
+                  });
+                }
+
+                function removeUpNextSong(songName, artist, imageUrl, moreInfo, upNextSongDiv) {
+
+                  // Assuming you have a container element for saved songs
+                  const upNextContainer = document.getElementById('up-next');
+                  upNextContainer.removeChild(upNextSongDiv);
+ 
+                  fetch('/removeUpNextSong', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({ title: songName, artist: artist, imageURL: imageUrl, moreinfo: moreInfo }),
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                      if (data.success) {
+                          alert("Song removed successfully!");
+                      } else {
+                          alert("Error removing song: " + data.message);
+                      }
+                  })
+                  .catch(error => {
+                      console.error('Error removing song:', error);
+                      alert("Error removing song: " + error.message);
+                  });
+                }
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    const upNextContainer = document.getElementById('up-next');
+                    const savedContainer = document.getElementById('saved-section');
+
+                    // Clear existing content in the Up Next/Saved playlist
+                    upNextContainer.innerHTML = '';
+                    savedContainer.innerHTML = '';
+
+                      fetch('/api/getSongList')  // Update the endpoint to match your server route
+                        .then(response => response.json())
+                        .then(data => {
+                            // Call a function to update the Up Next playlist with the fetched songs
+                            updateUpNextPlaylist(data.songList); // Assuming 'songList' is the key in the response JSON
+                        })
+                        .catch(error => {
+                            console.error('Error fetching Up Next songs:', error);
+                        });
+
+                      fetch('/api/getSavedSongs')
+                        .then(response => response.json())
+                        .then(data => {
+                            // Call a function to update the Up Next playlist with the fetched songs
+                            updateSavedPlaylist(data.savedSongs);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching Up Next songs:', error);
+                        });
+                });
+
+                function updateUpNextPlaylist(songList) {
+                    const upNextContainer = document.getElementById('up-next');
+
+                    // Iterate through the fetched songs and add them to the Up Next playlist
+                    songList.forEach(song => {
+                        const upNextSongDiv = createSongContainer(song, "Up-Next");
+                        upNextContainer.appendChild(upNextSongDiv);
+                    });
+                }
+
+                function updateSavedPlaylist(savedList) {
+                    const savedContainer = document.getElementById('saved-section');
+
+                    savedList.forEach(song => {
+                        const savedSongDiv = createSongContainer(song, "Saved");
+                        savedContainer.appendChild(savedSongDiv);
+                    })
+                }
+
+                function createSongContainer(song, key) {
+                    const songContainer = document.createElement('div');
+                    songContainer.classList.add('song-container');
+
+                    const songCoverDiv = document.createElement('div');
+                    songCoverDiv.classList.add('song-cover');
+                    
+                    const songCoverImage = document.createElement('img');
+                    songCoverImage.src = song.imageURL;
+                    songCoverDiv.appendChild(songCoverImage);
+
+                    const songTitleDiv = document.createElement('div');
+                    songTitleDiv.classList.add('song-title');
+                    
+                    const titleElement = document.createElement('h6');
+                    titleElement.textContent = song.title;
+
+                    const artistElement = document.createElement('p');
+                    artistElement.textContent = song.artist;
+
+                    const trashIcon = document.createElement('i');
+                    trashIcon.classList.add('fa-solid', 'fa-trash');
+                  
+                    if(key == "Up-Next") {
+                      trashIcon.addEventListener('click', () => removeUpNextSong(song.title, song.artist, song.imageURL, song.moreinfo, songContainer));
+                    }
+                    else {
+                      trashIcon.addEventListener('click', () => removeSavedSong(song.title, song.artist, song.imageURL, songContainer));
+                    }
+
+                    // Append elements to the song container
+                    songTitleDiv.appendChild(titleElement);
+                    songTitleDiv.appendChild(artistElement);
+                    songContainer.appendChild(songCoverDiv);
+                    songContainer.appendChild(songTitleDiv);
+                    songContainer.appendChild(trashIcon);
+
+                    if(key == "Up-Next") {
+                      const saveIcon = document.createElement('img');
+                      saveIcon.src = "images/save.png";
+                      saveIcon.style.width = "29px"; // Set the desired width
+                      saveIcon.style.height = "29px"; // Set the desired height
+                      saveIcon.style.cursor = "pointer"; // Add a pointer cursor for better UX
+                      saveIcon.addEventListener('click', () => saveSong(song.title, song.artist, song.imageURL));
+                      songContainer.appendChild(saveIcon);
+                    }
+
+                    return songContainer;
+                }
+              </script>
+
+            <button onclick="promptUserForSong()">Request Custom Song</button>
+            <button onclick="resetData()">Reset</button>
+            <script>
+                function resetData() {
+                    const confirmation = confirm("Are you sure you want to reset? This will clear all the songs you added and saved.");
+
+                    if (confirmation) {
+                        fetch('/resetData', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Server Response:', data);
+                                if (data && data.success) {
+                                    const upNextContainer = document.getElementById('up-next');
+                                    const savedContainer = document.getElementById('saved-section');
+
+                                    // Clear existing content in the Up Next/Saved playlist
+                                    upNextContainer.innerHTML = '';
+                                    savedContainer.innerHTML = '';
+
+                                    const songList = <%- JSON.stringify(songList) %>;
+                                    updateUpNextPlaylist(songList);
+                                    alert("Data reset successfully!");
+                                    
+                                } else {
+                                    alert("Error resetting data: " + (data ? data.message : 'Unknown error'));
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert("Error resetting data: " + error.message);
+                            });
+                    }
+                }
+
+                function promptUserForSong() {
+                    const songTitle = prompt("Enter the title of the song:");
+                    const songArtist = prompt("Enter the artist of the song:");
+                    const coverURL = prompt("Enter in the song cover URL:");
+                    const songMoreInfo = prompt("Enter additional information about the song:");
+
+                    if (songTitle && songArtist && coverURL && songMoreInfo) {
+
+                        fetch('/addCustomSong', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                title: songTitle,
+                                artist: songArtist,
+                                imageURL: coverURL,
+                                moreinfo: songMoreInfo,
+                            }),
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Server Response:', data);
+                                if (data && data.success) {
+
+                                  const savedSongsContainer = document.getElementById('up-next');
+
+                                  // Create a new div for the saved song
+                                  const savedSongDiv = document.createElement('div');
+                                  savedSongDiv.classList.add('song-container');
+
+                                  // Create a new div for the song cover
+                                  const songCoverDiv = document.createElement('div');
+                                  songCoverDiv.classList.add('song-cover');
+                                  // Create an image element for the song cover
+                                  const songCoverImage = document.createElement('img');
+                                  songCoverImage.src = coverURL;
+                                  songCoverDiv.appendChild(songCoverImage);
+
+                                  // Create a new div for the song title
+                                  const songTitleDiv = document.createElement('div');
+                                  songTitleDiv.classList.add('song-title');
+                                  const savedTitle = document.createElement('h6');
+                                  savedTitle.textContent = songTitle;
+                                  const savedArtist = document.createElement('p');
+                                  savedArtist.textContent = songArtist;
+
+                                  const trashIcon = document.createElement('i');
+                                  trashIcon.classList.add('fa-solid', 'fa-trash');
+                                  trashIcon.addEventListener('click', () => removeUpNextSong(songTitle, songArtist, coverURL, songMoreInfo, savedSongDiv));
+
+                                  const saveIcon = document.createElement('img');
+                                  saveIcon.src = "images/save.png";
+                                  saveIcon.style.width = "29px"; // Set the desired width
+                                  saveIcon.style.height = "29px"; // Set the desired height
+                                  saveIcon.style.cursor = "pointer"; // Add a pointer cursor for better UX
+                                  saveIcon.addEventListener('click', () => saveSong(songTitle, songArtist, coverURL));
+
+
+                                  // Append the elements to the saved song div
+                                  songTitleDiv.appendChild(savedTitle);
+                                  songTitleDiv.appendChild(savedArtist);
+                                  savedSongDiv.appendChild(songCoverDiv);
+                                  savedSongDiv.appendChild(songTitleDiv);
+                                  savedSongDiv.appendChild(trashIcon);
+                                  savedSongDiv.appendChild(saveIcon);
+
+                                  // Append the saved song div to the container
+                                  savedSongsContainer.appendChild(savedSongDiv);
+
+                                  alert("Song saved successfully!");
+                                    
+                                } else {
+                                    alert("Error adding custom song: " + (data ? data.message : 'Unknown error'));
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert("Error adding custom song: " + error.message);
+                            });
+                    } else {
+                        alert("Invalid input! Please enter valid information for the custom song.");
+                    }
+                }
+            </script>
+          </div>
+            <section class="playlists">
+              <div class="tabs-container">
+                <button class="tabs active">Up Next</button>
+                <button class="tabs" id="previous-playlist">
+                  Saved Songs
+                </button>
+              </div>
+              <div class="playlists-container">
+                <div class="content-list active" id="up-next">
+                </div>
+              </div>
+
+
+            <div class="content-list" id="saved-section">
+              <div class="song-container">
+              </div>
+            </div>
+
+            <script>
+              const tabs = document.querySelectorAll(".tabs");
+              const all_content = document.querySelectorAll(".content-list");
+              tabs.forEach((tab, index) => {
+  
+              tab.addEventListener("click", (e) => {
+                e.preventDefault();
+                tabs.forEach((tab) => {
+                  tab.classList.remove("active");
+                });
+                tab.classList.add("active");
+
+                all_content.forEach((content) => {
+                  content.classList.remove("active");
+                });
+                all_content[index].classList.add("active");
+              });
+            });
+          </script>
+        </main>
+        </div>
+    </nav>
+</body>
+</html>

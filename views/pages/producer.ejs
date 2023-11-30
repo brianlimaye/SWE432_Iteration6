@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Radio Website</title>
+        <link rel="stylesheet" href="stylesheet.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div class="sidebar">
+            <img src="images/sample_img.webp" alt="Profile Picture" class="pfp">
+            <p style="font-size: 20px;text-align: center;"><%= username %></p> 
+            <a href="#playlist">Current Playlist</a>
+            <a href="#add_songs">Add Songs</a>
+            <a href="#select_dj">Select DJ</a>
+            <a href="#select_timeslot">Select Timeslot</a>
+        </div>
+        <div class="flex-container">
+            <div>
+                <!-- Current Playlist Block-->
+                <h1>Current Playlist</h1>
+                <div class="container" id="playlist-container">
+                    <div class="song">
+                        <img src ="images/sample_img.webp" class="album-art">
+                        A song
+                        <audio controls>
+                            <source src="aud/nice_sound.mp3" type="audio/mp3">
+                        </audio>
+                    </div>
+                </div>
+            </div>
+            <!-- Song Add Block -->
+            <div>
+                <h1>Add Songs</h1>
+                <form id="song_form"> <!-- TODO: Implement search functionality-->
+                    <label for="song_search">Search:</label>
+                    <input type="text" id="song_search" name="song_search">
+                    <input type="submit" value="Submit">
+                </form>
+                <script>
+                    document.getElementById("song_form").onsubmit = function(event) {
+                        var inputField = document.getElementById("song_search");
+                        if (inputField.value.trim() === "") {
+                            alert("Please enter a song title.");
+                            event.preventDefault();
+                        }
+                    };
+                </script>
+                <div class="container">
+                    <div class="song">
+                        <img src ="images/sample_img.webp" class="album-art">
+                        A bad song
+                        <audio controls>
+                            <source src="audio/nice_sound.mp3" type="audio/mp3">
+                        </audio>
+                        <img src ="images/add.png" class="album-art" onclick="addSong(this)">
+                    </div>
+                    <div class="song">
+                        <img src ="images/sample_img.webp" class="album-art">
+                        A great song
+                        <audio controls>
+                            <source src="audio/nice_sound.mp3" type="audio/mp3">
+                        </audio>
+                        <img src ="images/add.png" class="album-art" onclick="addSong(this)">
+                    </div>
+                    <div class="song">
+                        <img src ="img/sample_img.webp" class="album-art">
+                        A happy song
+                        <audio controls>
+                            <source src="audio/nice_sound.mp3" type="audio/mp3">
+                        </audio>
+                        <img src ="images/add.png" class="album-art" onclick="addSong(this)">
+                    </div>
+                    <div class="song">
+                        <img src ="images/sample_img.webp" class="album-art">
+                        A weird song
+                        <audio controls>
+                            <source src="audio/nice_sound.mp3" type="audio/mp3">
+                        </audio>
+                        <img src ="images/add.png" class="album-art" onclick="addSong(this)">
+                    </div>
+                    <div class="song">
+                        <img src ="images/sample_img.webp" class="album-art">
+                        An sad song
+                        <audio controls>
+                            <source src="audio/nice_sound.mp3" type="audio/mp3">
+                        </audio>
+                        <img src ="images/add.png" class="album-art" onclick="addSong(this)">
+                    </div>
+                    <div class="song">
+                        <img src ="images/sample_img.webp" class="album-art">
+                        A meh song
+                        <audio controls>
+                            <source src="audio/nice_sound.mp3" type="audio/mp3">
+                        </audio>
+                        <img src ="images/add.png" class="album-art" onclick="addSong(this)">
+                    </div>
+                </div>
+            </div>
+            <!-- Select DJ Block -->
+            <div>
+                <h1>Select DJ</h1>
+                <div class="container">
+                    <div class="dj" onclick="toggleActive(this)">
+                        <img src ="images/sample_img.webp" class="album-art">
+                        DJ Bunny
+                    </div>
+                    <div class="dj" onclick="toggleActive(this)">
+                        <img src ="images/sample_img.webp" class="album-art">
+                        DJ Rabbit
+                    </div>
+                    <div class="dj" onclick="toggleActive(this)">
+                        <img src ="images/sample_img.webp" class="album-art">
+                        DJ Lagomorph
+                    </div>
+                    <div class="dj" onclick="toggleActive(this)">
+                        <img src ="images/sample_img.webp" class="album-art">
+                        DJ Carrots
+                    </div>
+                    <div class="dj" onclick="toggleActive(this)">
+                        <img src ="images/sample_img.webp" class="album-art">
+                        DJ Hay
+                    </div>
+                </div>
+            </div>
+            <!-- Select Time Slot Block-->
+            <div>
+                <h1>Select Time Slot</h1>
+                <div style="height: auto; width: 600px; border: 1px solid gold; padding: 10px;  ">
+                    <form>
+                        <label for="start_time">Start Time:</label>
+                        <input type="text" id="start_time" name="start_time">
+                        <label for="end_time">End Time:</label>
+                        <input type="text" id="end_time" name="end_time">
+                        <input type="button" value="Check Timeslot" onclick="validateTimes()">
+                    </form>
+                    <div id="error-popup" style="display: none;">
+                        <p id="error-message" style="color: red;"></p>
+                    </div>
+                </div>
+            </div>
+            <!-- TODO: Playlist submission when we get database setup-->
+            <button class="submit-button">Submit</button>
+            <button class="reset-button" id="reset-button">Reset</button>
+
+            <script>
+                document.getElementById("reset-button").addEventListener("click", function () {
+                    // Get the playlist container
+                    const playlistContainer = document.getElementById("playlist-container");
+        
+                    // Remove all child elements (songs) from the container
+                    while (playlistContainer.firstChild) {
+                        playlistContainer.removeChild(playlistContainer.firstChild);
+                    }
+                });
+            </script>
+        </div>
+    </body>
+</html>
