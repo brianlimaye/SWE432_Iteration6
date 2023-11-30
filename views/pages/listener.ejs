@@ -57,7 +57,7 @@
                     var input = prompt("Please leave a comment about this song.");
 
                     if (input !== null && input.trim() !== "") {
-                        fetch('/api/insertComment', {
+                        fetch('/insertComment', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

@@ -105,7 +105,7 @@ app.get('/api/getSavedSongs', async (req, res) => {
 app.post('/insertComment', async (req, res) => {
     try {
         const { message } = req.body;
-        const newComment = new comments({ message });
+        const newComment = new comments({ message: message });
         await newComment.save();
         res.json({ success: true, message: 'Comment added successfully' });
     } catch (error) {
